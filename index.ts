@@ -34,8 +34,8 @@ const c = {
   warn: chalk.hex('#FCD34D').bold,
 }
 
-const BOX_TOP = c.border('╭───────────────────────────────────────╮')
-const BOX_BOT = c.border('╰───────────────────────────────────────╯')
+const BOX_TOP = c.border('╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮')
+const BOX_BOT = c.border('╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯')
 const BAR = c.border('│')
 
 const AUTH_FOLDER = 'auth'
@@ -49,12 +49,12 @@ function clearSession() {
     if (fs.existsSync(AUTH_FOLDER)) {
       fs.rmSync(AUTH_FOLDER, { recursive: true, force: true })
       console.log('\n' + BOX_TOP)
-      console.log(`${BAR}  ${c.warn('⚠  Sesión eliminada automáticamente')}      ${BAR}`)
-      console.log(`${BAR}  ${c.dim('Reinicia para vincular de nuevo')}          ${BAR}`)
+      console.log(`${BAR}  ${c.warn('⚠  Sessão excluída automaticamente')}      ${BAR}`)
+      console.log(`${BAR}  ${c.dim('Reinicie para reconectar')}          ${BAR}`)
       console.log(BOX_BOT + '\n')
     }
   } catch (e) {
-    console.error(c.error('Error al limpiar sesión:'), e)
+    console.error(c.error('Erro ao limpar a sessão:'), e)
   }
 }
 
@@ -70,7 +70,7 @@ function cleanCache() {
           cleaned++
         } catch {}
       }
-      if (cleaned > 0) console.log(c.dim(`[ 🧹 ] Cache: ${cleaned} archivos eliminados`))
+      if (cleaned > 0) console.log(c.dim(` Cache: ${cleaned} arquivos excluídos`))
     }
     if (fs.existsSync(AUTH_FOLDER)) {
       const getFolderSizeMB = (dir: string): number => {
@@ -86,14 +86,14 @@ function cleanCache() {
       }
       const sizeMB = getFolderSizeMB(AUTH_FOLDER)
       if (sizeMB > CACHE_MAX_MB) {
-        console.log(c.warn(`[ ⚠ ] Auth ${sizeMB.toFixed(1)}MB — limpiando...`))
+        console.log(c.warn(`⚠ Auth ${sizeMB.toFixed(1)}MB — limpeza...`))
         const safeDelete = (dir: string) => {
           for (const file of fs.readdirSync(dir)) {
             const filePath = path.join(dir, file)
             const stat = fs.statSync(filePath)
             if (stat.isDirectory()) {
               safeDelete(filePath)
-            } else if (!file.includes('creds') && !file.startsWith('session-')) {
+            } else if (!file.includes('creds') && !file.startsWith('sessão-')) {
               try {
                 fs.unlinkSync(filePath)
               } catch {}
@@ -104,7 +104,7 @@ function cleanCache() {
       }
     }
   } catch (e) {
-    console.error(c.error('Error en cleanCache: '), e)
+    console.error(c.error('Erro em cleanCache: '), e)
   }
 }
 
@@ -185,11 +185,11 @@ async function startBot() {
       if (!qr || pairingDone) return
       pairingDone = true
       console.log('\n' + BOX_TOP)
-      console.log(`${BAR}  ${c.title('✦  LURUS  —  VINCULAR SESIÓN  ✦')}      ${BAR}`)
+      console.log(`${BAR}  ${c.title('SESSÃO DE LINK')}      ${BAR}`)
       console.log(BOX_BOT)
       try {
         let phone = await question(
-          '\n' + c.input('Número (código de país, sin +)\n') + c.dim('  ›') + ' '
+          '\n' + c.input('Número (código do país, sem o sinal de +)\n') + c.dim('  ›') + ' '
         )
         phone = phone.replace(/\D/g, '')
         if (!phone || phone.length < 7) {
@@ -200,12 +200,12 @@ async function startBot() {
         const code = await sock.requestPairingCode(phone, 'LURUSBOT')
         const formatted = code.match(/.{1,4}/g)?.join(' - ') || code
         console.log('\n' + BOX_TOP)
-        console.log(`${BAR}  ${c.label('CÓDIGO ›')} ${c.value(formatted)}                  ${BAR}`)
+        console.log(`${BAR}  ${c.label('CÓDIGO PARA LINK ›')} ${c.value(formatted)}                  ${BAR}`)
         console.log(`${BAR}  ${c.dim('WhatsApp → Dispositivos vinculados')}     ${BAR}`)
-        console.log(`${BAR}  ${c.dim('→ Vincular con código de teléfono')}      ${BAR}`)
+        console.log(`${BAR}  ${c.dim('→ Link com código de telefone')}      ${BAR}`)
         console.log(BOX_BOT + '\n')
       } catch (err) {
-        console.error('\n' + c.error('  ✗ Error al generar el código:'), err)
+        console.error('\n' + c.error('  ✗ Erro ao gerar o código:'), err)
         pairingDone = false
       }
     })
@@ -238,36 +238,36 @@ async function startBot() {
         const contextInfo = {
           mentionedJid: [jid],
           externalAdReply: {
-            title: '🫟 L U R U S  S Y S T E M 🫟',
+            title: 'SISTEMA AVA',
             body: metadata.subject,
             mediaType: 1,
             renderLargerThumbnail: true,
             thumbnailUrl: pp,
-            sourceUrl: 'github.com/AzamiJs',
+            sourceUrl: 'github.com/Dev-FelixOfc',
           },
         }
         if (anu.action === 'add' && chatData.welcome) {
-          const text = `> Welcome *@${phone}* to *${metadata.subject}* 👋`
+          const text = `> Bem-vindo *@${phone}* para *${metadata.subject}* 👋`
           await sock.sendMessage(anu.id, { text, contextInfo })
         } else if ((anu.action === 'remove' || anu.action === 'leave') && chatData.welcome) {
-          const text = `> Adiós, *@${phone}* ha salido del grupo *${metadata.subject}* 👋`
+          const text = `> Tchau, *@${phone}* saiu do grupo *${metadata.subject}* 👋`
           await sock.sendMessage(anu.id, { text, contextInfo })
         } else if (anu.action === 'promote' && chatData.detect) {
           const usuario = anu.author || ''
           await sock.sendMessage(anu.id, {
-            text: `*@${phone}* Ha sido ascendido al rol de *administrador*.\n\n> Acción hecha por @${usuario.split('@')[0]}`,
+            text: `*@${phone}* Ele foi promovido ao cargo de *administrador*.\n\n> Ação tomada por @${usuario.split('@')[0]}`,
             mentions: [jid, usuario],
           })
         } else if (anu.action === 'demote' && chatData.detect) {
           const usuario = anu.author || ''
           await sock.sendMessage(anu.id, {
-            text: `★ *@${phone}* Ha sido removido de su rol de *administrador*.\n\n> Acción hecha por @${usuario.split('@')[0]}`,
+            text: `★ *@${phone}* Ele foi removido de sua função de *administrador*.\n\n> Açāo tomada por @${usuario.split('@')[0]}`,
             mentions: [jid, usuario],
           })
         }
       }
     } catch (err) {
-      console.log('[ EVENT ERROR ] ->', err)
+      console.log('ERRO DE EVENTO ->', err)
     }
   })
 
