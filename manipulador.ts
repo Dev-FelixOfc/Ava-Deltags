@@ -1,9 +1,9 @@
 import { readdirSync, statSync } from 'fs'
 import { join } from 'path'
-import config from './config.js'
+import config from './config.ts'
 import chalk from 'chalk'
-import { antiLink } from './plugins/antilink.js'
-import { resolveLidToRealJid } from './configuraçōes/serviços_públicos.js'
+import { antiLink } from './plugins/antilink.ts'
+import { resolveLidToRealJid } from './configuraçōes/serviços_públicos.ts'
 
 const pluginCache: Map<string, any> = new Map()
 const commandIndex: Map<string, any> = new Map()
