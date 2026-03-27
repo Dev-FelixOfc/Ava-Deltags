@@ -1,5 +1,5 @@
 import fs from 'fs'
-import { writeExifImg, writeExifVid } from '../../configuraçōes/rótulos.js'
+import { writeExifImg, writeExifVid } from '../../configuraçōes/rótulos.ts'
 
 export default {
   command: ['sticker', 's'],
