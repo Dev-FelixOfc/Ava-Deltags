@@ -8,7 +8,7 @@ import {
 import axios from 'axios'
 import fs from 'fs'
 import path from 'path'
-import { resolveLidToRealJid } from './utils.js'
+import { resolveLidToRealJid } from './serviços_públicos.ts'
 
 const PREFIX_REGEX = /^[°•π÷×¶∆£¢€¥®™+✓_=|~!?@#$%^&.©^]/
 
