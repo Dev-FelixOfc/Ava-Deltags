@@ -8,9 +8,9 @@ const {
   Browsers,
 } = baileys
 import pino from 'pino'
-import { smsg } from './lib/simple.js'
-import { loadDB } from './lib/db/data.js'
-import handler, { pluginsReady } from './handler.js'
+import { smsg } from './configurações/simple.js'
+import { loadDB } from './configuraçōes/dd/dados.js'
+import handler, { pluginsReady } from './manipulador.js'
 import chalk from 'chalk'
 import config from './config.js'
 import axios from 'axios'
