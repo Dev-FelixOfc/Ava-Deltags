@@ -8,8 +8,8 @@ const {
   Browsers,
 } = baileys
 import pino from 'pino'
-import { smsg } from './configurações/simple.js'
-import { loadDB } from './configuraçōes/did/dados.js'
+import { smsg } from './configurações/simple.ts'
+import { loadDB } from './configuraçōes/did/dados.ts'
 import handler, { pluginsReady } from './manipulador.js'
 import chalk from 'chalk'
 import config from './config.ts'
