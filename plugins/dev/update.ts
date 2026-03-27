@@ -1,6 +1,6 @@
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { loadPlugins, pluginCache } from '../../manipulador.js'
+import { loadPlugins, pluginCache } from '../../manipulador.ts'
 
 const execute = promisify(exec)
 
