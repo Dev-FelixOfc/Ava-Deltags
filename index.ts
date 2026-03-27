@@ -9,7 +9,7 @@ const {
 } = baileys
 import pino from 'pino'
 import { smsg } from './configurações/simple.js'
-import { loadDB } from './configuraçōes/dd/dados.js'
+import { loadDB } from './configuraçōes/did/dados.js'
 import handler, { pluginsReady } from './manipulador.js'
 import chalk from 'chalk'
 import config from './config.js'
