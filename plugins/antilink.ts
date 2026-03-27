@@ -1,4 +1,4 @@
-import { resolveLidToRealJid } from '../configuraçōes/serviçōs_públicos.js'
+import { resolveLidToRealJid } from '../configuraçōes/serviçōs_públicos.ts'
 
 export async function antiLink(sock: any, m: any) {
   if (!m.text || !m.isGroup) return
