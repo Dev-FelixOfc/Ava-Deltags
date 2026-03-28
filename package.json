@@ -11,7 +11,7 @@
   },
 
   "dependencies": {
-    "@whiskeysockets/baileys": "github:this-xys/baileys",
+    "@whiskeysockets/baileys": "^6.6.0",
     "aptoide-scraper": "github:DIEGO-OFC/dv-aptoide-scraper",
     "axios": "^1.9.0",
     "better-sqlite3": "^8.2.0",
